@@ -1,10 +1,8 @@
-import { CoreModule } from './../core/core.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { CoreModule } from './../core/core.module';
 import { SharedModule } from './../shared/shared.module';
 import { AuthenticationRoutes } from './authentication.routing';
 import { ForgotComponent } from './forgot/forgot.component';

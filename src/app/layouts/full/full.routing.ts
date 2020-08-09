@@ -1,8 +1,5 @@
-import { DashboardComponent } from '../../dashboard/dashboard/dashboard.component';
 import { Routes } from '@angular/router';
-
 import { FullComponent } from './full.component';
-
 export const FullLayoutRouting: Routes = [
   {
     path: '',
@@ -10,7 +7,7 @@ export const FullLayoutRouting: Routes = [
     children: [
       {
         path: '',
-        component: DashboardComponent
+        loadChildren: './../../features/dashboard/dashboards.module#DashboardsModule'
       }
     ]
   }
