@@ -8,6 +8,10 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { LocalStorageService } from '../../core/auth/services/local-storage.service';
+import { Store, select } from '@ngrx/store';
+import { getLoginSuccess } from '../../core/store/login/login.actions';
+import { loginSelector } from '../../core/store/login/login.selector';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +20,13 @@ import { LocalStorageService } from '../../core/auth/services/local-storage.serv
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
+  public loginState$: Subscription;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private localStorage: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private store$: Store
   ) { }
 
   ngOnInit() {
@@ -39,6 +45,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value).subscribe(
       data => {
         this.localStorage.set('token', data.token);
+        this.store$.dispatch(getLoginSuccess({ status: 'success', message: data.message, username: this.form.get('username').value }));
         this.router.navigateByUrl('/');
       },
       error => console.log(error)

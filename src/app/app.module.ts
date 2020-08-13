@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,6 +14,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     CoreModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot({}, {}),
     RouterModule.forRoot(AppRoutes)
   ],
   bootstrap: [AppComponent]

@@ -6,11 +6,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CancelIntereptor } from './auth/intercoptor/cancel.interceptor';
 import { CanActivateGuard } from './auth/guards/canActivate.guard';
+import { StoreModule } from '@ngrx/store';
+import { loginReducer } from './store/login/login.reducer';
 
 @NgModule({
     imports: [
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        StoreModule.forFeature('feature_login', loginReducer),
     ],
     declarations: [],
     exports: [
