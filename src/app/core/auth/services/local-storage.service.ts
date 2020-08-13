@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class LocalStorageService {
     constructor() { }
 
@@ -21,7 +21,7 @@ export class LocalStorageService {
         }
     }
 
-    get token() {
+    get getToken() {
         return this.get('token');
     }
 }

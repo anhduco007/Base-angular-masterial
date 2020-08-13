@@ -102,7 +102,6 @@
             ],
             "assets": [
               "src/assets",
-
               "src/favicon.ico"
             ]
           }
@@ -156,5 +155,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": "922896fe-1fa4-4739-a074-46d79455bef4"
   }
 }

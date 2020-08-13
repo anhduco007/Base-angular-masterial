@@ -4,12 +4,9 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  FormControl
 } from '@angular/forms';
-import { CustomValidators } from 'ng2-validation';
+import { AuthService } from '../services/auth.service';
 
-const password = new FormControl('', Validators.required);
-const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 
 @Component({
   selector: 'app-register',
@@ -18,20 +15,53 @@ const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 })
 export class RegisterComponent implements OnInit {
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  registerState: {
+    loading?: boolean;
+    success?: boolean;
+    fail?: boolean;
+  } = { loading: true, success: null, fail: null };
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+    ) {}
 
   ngOnInit() {
+    this.registerState.loading = true;
+    this.buildForm();
+  }
+
+  buildForm() {
     this.form = this.fb.group({
-      email: [
-        null,
-        Validators.compose([Validators.required, CustomValidators.email])
-      ],
-      password: password,
-      confirmPassword: confirmPassword
-    });
+      username: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      confirmPassword: [null, [Validators.required, Validators.minLength(8)]]
+    }, { validator: this.checkIfMatchingPasswords('password', 'confirmPassword') });
+  }
+
+  private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      const passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({ notSame: true });
+      } else {
+        return passwordConfirmationInput.setErrors(null);
+      }
+    };
   }
 
   onSubmit() {
-    this.router.navigate(['/']);
+    if (this.form.invalid) return;
+    this.authService.register(this.form.value).subscribe(
+      (data) => {
+        this.registerState.loading = !this.registerState.loading;
+        this.registerState.success = true;
+      },
+      (error) => {
+        this.registerState.loading = !this.registerState.loading;
+        this.registerState.fail = true;
+      }
+    );
   }
 }

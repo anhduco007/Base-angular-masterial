@@ -12,18 +12,17 @@
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Username" [formControl]="form.controls['uname']">
+                                <input id="login-username" matInput placeholder="Username" formControlName="username">
                             </mat-form-field>
-                            <small *ngIf="form.controls['uname'].hasError('required') && form.controls['uname'].touched"
-                                class="text-danger support-text">Username is required.</small>
+                            <mat-error *ngIf="form.get('username').hasError('required') && form.get('username').touched">Required</mat-error>
                         </div>
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput type="password" placeholder="Password" [formControl]="form.controls['password']">
+                                <input id="login-password" matInput type="password" placeholder="Password" formControlName="password">
                             </mat-form-field>
-                            <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched"
-                                class="text-danger support-text">Password is required.</small>
+                            <mat-error *ngIf="form.get('password').hasError('required') && form.get('password').touched">Required</mat-error>
+
                         </div>
                         <!-- col half-->
                         <div fxFlex.gt-sm="50" fxFlex.gt-xs="50">
@@ -41,7 +40,7 @@
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-center">
                             <span>Don't have an account?
-                                <a [routerLink]="['/authentication/register']" class="text-info link">Register</a>
+                                <a [routerLink]="['/auth/signin']" class="text-info link">Register</a>
                             </span>
                         </div>
                     </div>

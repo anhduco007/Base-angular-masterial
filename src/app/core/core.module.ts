@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CancelIntereptor } from './auth/intercoptor/cancel.interceptor';
+import { CanActivateGuard } from './auth/guards/canActivate.guard';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import { CancelIntereptor } from './auth/intercoptor/cancel.interceptor';
         { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: CancelIntereptor, multi: true },
+        CanActivateGuard
     ]
 })
 

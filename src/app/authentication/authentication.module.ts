@@ -9,6 +9,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorComponent } from './error/error.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ErrorComponent } from './error/error.component';
     LoginComponent,
     RegisterComponent,
     ErrorComponent
-  ]
+  ],
+  providers: [AuthService]
 })
 export class AuthenticationModule {}
