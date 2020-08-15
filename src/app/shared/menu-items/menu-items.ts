@@ -37,7 +37,6 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'av_timer',
     children: [
-      { state: '', name: 'Dashboard', type: 'link' },
     ]
   }
 ];
